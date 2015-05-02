@@ -18,7 +18,7 @@ $betfair_username = '';
 $betfair_password = '';
 $betfair_key = '';
 
-##########################
+#########################
 
 $commission = 0.05;
 
