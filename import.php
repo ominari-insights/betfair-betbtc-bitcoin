@@ -126,6 +126,7 @@ class Rename
             "Mordovia Saransk" => "M. Saransk",
             "Leverkusen" => "Bayer Leverkusen",
             "Sociedad" => "Real Sociedad",
+            "Hull" => "Hull City",
 
             
             #BASKET
@@ -193,6 +194,35 @@ class Rename
             "Boston" => "Boston Bruins",
             "Tampa Bay" => "Tampa Bay Lightning",
             "New Jersey" => "New Jersey Devils"
+
+            ##TENIS
+            // "" => "D. Istomin",
+            // "" => "A. Ramos",
+            // "" => "J. Janowicz",
+            // "" => "F. Fognini",
+            // "" => "N. Gombos",
+            // "" => " D. Goffin",
+            // "" => "P. Carreno-Busta",
+            // "" => "S. Stakhovsky",
+            // "" => "D. Kudla",
+            // "" => "B. Paire",
+            // "" => "B. Coric",
+            // "" => "A. Dolgopolov",
+            // "" => "T. Robredo",
+            // "" => "A. Seppi",
+            // "" => "P. Kohlschreiber",
+            // "" => "M. Kukushkin",
+            // "" => "S. Johnson",
+            // "" => "J. Isner",
+            // "" => "F. Verdasco",
+            // "" => "G. Dimitrov",
+            // "" => "J. Tsonga",
+            // "" => "S. Querrey",
+            // "" => "D. Thiem",
+            // "" => "L. Pouille",
+            // "" => "S. Querrey",
+
+            
             
         );
         
@@ -202,7 +232,7 @@ class Rename
         foreach ($torename as $key => $x) {
             
             
-            $team = $x['teams'];
+            $team = $x['team1'];
             $league = $x['league'];
             
             $result = array_search($team, $team_matches);
@@ -210,7 +240,7 @@ class Rename
                 $team = $result;
             }
             
-            $torename[$key]['teams'] = $team;
+            $torename[$key]['team1'] = $team;
             
             $result2 = array_search($league, $league_matches);
             if ($result2 !== false) {
@@ -244,7 +274,7 @@ class Rename
                 $marketFilter = MarketFilter::create();
                 $marketFilter
                 //->setEventIds=$ids;
-                    ->setTextQuery($row['teams'])->setMarketTypeCodes(["MATCH_ODDS"])->setCompetitionIds(array(
+                    ->setTextQuery($row['team1'])->setMarketTypeCodes(["MATCH_ODDS"])->setCompetitionIds(array(
                     $row['league']))->setMarketStartTime($timeZone);
                 #->setMarketSort( ["LAST_TO_START"] )
                     #->setMarketStartTime($timeZone);
@@ -255,7 +285,9 @@ class Rename
                 
                 $events[] = array(
                     'betbtc' => $row['marketid'],
-                    'betfair' => $betfair
+                    'sport' => $row['sport'],
+                    'betfair' => $betfair,
+                    'visitor' => $row['team2']
                 );
 
               } elseif ($row['sport'] == 5) {
@@ -267,7 +299,7 @@ class Rename
                 $marketFilter = MarketFilter::create();
                 $marketFilter
                 //->setEventIds=$ids;
-                    ->setTextQuery($row['teams'])->setMarketTypeCodes(["MATCH_ODDS"])->setCompetitionIds(array(
+                    ->setTextQuery($row['team1'])->setMarketTypeCodes(["MATCH_ODDS"])->setCompetitionIds(array(
                     $row['league']))->setMarketStartTime($timeZone);
                 #->setMarketSort( ["LAST_TO_START"] )
                 
@@ -277,7 +309,9 @@ class Rename
                 
                 $events[] = array(
                     'betbtc' => $row['marketid'],
-                    'betfair' => $betfair
+                    'sport' => $row['sport'],
+                    'betfair' => $betfair,
+                    'visitor' => $row['team2']
                 );
 
             //TÉNIS
@@ -287,7 +321,7 @@ class Rename
                 $to       = new DateTime("now + 1 day");
                 $timeZone = new \Betfair\Model\TimeRange($from, $to);
 
-                $teams = $row['teams'];
+                $teams = $row['team1'];
                 $explode = explode(' ', $teams);
 
                 $end = '';
@@ -314,7 +348,9 @@ class Rename
                 
                 $events[] = array(
                     'betbtc' => $row['marketid'],
-                    'betfair' => $betfair
+                    'sport' => $row['sport'],
+                    'betfair' => $betfair,
+                    'visitor' => $row['team2']
                 );
                 
             //HOCKEY == MONEYLINE
@@ -327,7 +363,7 @@ class Rename
                 $marketFilter = MarketFilter::create();
                 $marketFilter
                 //->setEventIds=$ids;
-                    ->setTextQuery($row['teams'])->setMarketTypeCodes(["MONEY_LINE"])->setCompetitionIds(array(
+                    ->setTextQuery($row['team1'])->setMarketTypeCodes(["MONEY_LINE"])->setCompetitionIds(array(
                     $row['league']))->setMarketStartTime($timeZone);
                 #->setMarketSort( ["LAST_TO_START"] )
                     #->setMarketStartTime($timeZone);
@@ -338,7 +374,9 @@ class Rename
                 
                 $events[] = array(
                     'betbtc' => $row['marketid'],
-                    'betfair' => $betfair
+                    'sport' => $row['sport'],
+                    'betfair' => $betfair,
+                    'visitor' => $row['team2']
                 );
                 
             }
@@ -435,7 +473,7 @@ while (1) {
 
 
 
-        $sqla2    = "SELECT sport, betbtc, home_betbtc, league_betbtc, event_date FROM Markets";
+        $sqla2    = "SELECT sport, betbtc, home_betbtc, away_betbtc, league_betbtc, event_date FROM Markets";
         $resulta2 = $conn->query($sqla2);
 
         $torename = array();
@@ -446,7 +484,8 @@ while (1) {
                 $torename[] = array(
                     'sport' => $row['sport'],
                     'marketid' => $row['betbtc'],
-                    'teams' => $row['home_betbtc'],
+                    'team1' => $row['home_betbtc'],
+                    'team2' => $row['away_betbtc'],
                     'league' => $row['league_betbtc'],
                     'event_date' => $row['event_date']
                 );
@@ -488,9 +527,20 @@ while (1) {
                 
                 
             }
-            
-            #CHECK FOR BAD TENIS MATCHES (DOUBLES)
-            if (strpos($home_betfair, '/') === false && strpos($away_betfair, '/') === false) {
+
+            $sport = $row['sport'];
+            $visitor_betbtc = $row['visitor'];
+
+
+            $explode = explode(' ', $visitor_betbtc);
+            $end = '';
+
+            if(count($explode) > 0){
+                $end = array_pop($explode); // removes the last element, and returns it
+            }
+
+            #CHECK FOR BAD TENIS MATCHES (DOUBLES and WRONG VISITORS)
+            if ($sport != 4 || (strpos($home_betfair, '/') === false && strpos($away_betfair, '/') === false && strpos($away_betfair, $end) !== false)) {
 
                 $query3= "SELECT * FROM Markets WHERE betfair = '" . $market_betfair . "'";
                 $result3 = $conn->query($query3);
