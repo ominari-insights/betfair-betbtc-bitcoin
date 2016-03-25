@@ -25,7 +25,7 @@ This script is running on loop. We are using crontab and a script to ensure it i
 The <a href="https://github.com/danieledangeli/betfair-php"><b>danieledangeli's betfair-php library</b></a> is the lib used by this BetBTC Arbitrage bot to communicate with betfair, it is required to setup it before using this script.
 
 
-Installation
+Instructions
 ===
 
 - Make a clean Linux Instalation (Ubuntu is fine) - pick a 2GB VPS at least to avoid crashings.
@@ -34,3 +34,4 @@ Installation
 - Clone this LIB.
 - Adapt configurations on the once_new.php file
 - Make /crons folder and contents executable and put both running on your system crontab.
+- Congratulations, you are now one of the few people profiting with this 100% automatic bot, remember that <a href="https://betbtc.zendesk.com/hc/en-us/articles/201733242"><b>Market Makers don't pay commission at BetBTC.</b>
