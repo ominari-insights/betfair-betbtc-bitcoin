@@ -35,3 +35,9 @@ Instructions
 - Adapt configurations on the once_new.php file
 - Make /crons folder and contents executable and put both running on your system crontab.
 - Congratulations, you are now one of the few people profiting with this 100% automatic bot, remember that <a href="https://betbtc.zendesk.com/hc/en-us/articles/201733242"><b>Market Makers don't pay commission at BetBTC.</b>
+
+Who am I and why do I share this?
+===
+
+Althought I'm a pioneer user of BetBTC, I am not affiliated in any way with it. 
+I am sharing this code because the more people know BetBTC by it's good odds, the more users will also match my bets and more I will profit.
