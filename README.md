@@ -7,7 +7,7 @@ Requirements
 - <a href="https://github.com/danieledangeli/betfair-php"><b>danieledangeli's betfair-php library</b></a>
 
 
-Basic Concept
+How it works?
 ===
 
 
@@ -24,66 +24,13 @@ This script is running on loop. We are using crontab and a script to ensure it i
 
 The <a href="https://github.com/danieledangeli/betfair-php"><b>danieledangeli's betfair-php library</b></a> is the lib used by this BetBTC Arbitrage bot to communicate with betfair, it is required to setup it before using this script.
 
-Requisits (Step 0)
+
+Installation
 ===
 
 - Make a clean Linux Instalation (Ubuntu is fine) - pick a 2GB VPS at least to avoid crashings.
+- Install a fresh LAMP.
 - Get the <a href="https://github.com/danieledangeli/betfair-php"><b>danieledangeli's betfair-php library</b></a>
-
-
-Import Database (First Step)
-===
-
--You need to import the database_schema to your local or remote database.
--<b> <a href="https://github.com/acegilz/betfair-betbtc-bitcoin/blob/master/database_schema.sql">Database Example </b></a>
-
-Import BetBTC Markets and Match with Betfair (Second Step)
-===
-
-File <b> <a href="https://github.com/acegilz/betfair-betbtc-bitcoin/blob/master/import.php">import.php </b></a>
-
-After having the database setted up you should run the Importer. By default it is running on an endless loop, checking for new events every 30 minutes.
-
-This importer will update the database with retrieved data.
-
-Don't forget to update some preferences and fill the Database / Login Credentials.
-
-``` php
-date_default_timezone_set("UTC");
-####### CONFIG LOGIN CREDENTIALS
-$betbtc_token = '';
-$betfair_username = '';
-$betfair_password = '';
-$betfair_key = '';
-##########################
-$servername = "127.0.0.1";
-$username   = "root";
-$password   = "";
-$dbname     = "api";
-```
-
-Auto Removing and Placing Bets (Third Step)
-===
-
-File <b> <a href="https://github.com/acegilz/betfair-betbtc-bitcoin/blob/master/bet.php">bet.php </b></a>
-
-After having the markets stored on database we are prepared to run the bettor. This will read all the markets we have on the database with status = 1 (active) and work on them, checking the betfair market of each one and update the correspondent database field. If there is any variance on the odds it will use again the BetBTC Api to remove the old Bets for that market and create new ones.
-
-By default it is running on an endless loop, removing and placing new bets every 5 minutes.
-
-Don't forget to Update the credentials and spread to apply on bets.php (beggining of file)
-
-``` php
-date_default_timezone_set("UTC");
-####### CONFIG LOGIN CREDENTIALS
-$betbtc_token = '';
-$betfair_username = '';
-$betfair_password = '';
-$betfair_key = '';
-#########################
-$commission = 0.05;
-$servername = "127.0.0.1";
-$username   = "root";
-$password   = "";
-$dbname     = "api";
-```
+- Clone this LIB.
+- Adapt configurations on the once_new.php file
+- Make /crons folder and contents executable and put both running on your system crontab.
