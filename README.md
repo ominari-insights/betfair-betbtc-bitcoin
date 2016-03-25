@@ -27,8 +27,8 @@ The <a href="https://github.com/danieledangeli/betfair-php"><b>danieledangeli's 
 Requisits (Step 0)
 ===
 
-Make a clean Linux Instalation (Ubuntu is fine) - pick a 2GB VPS at least to avoid crashings.
-Get the <a href="https://github.com/danieledangeli/betfair-php"><b>danieledangeli's betfair-php library</b></a>
+- Make a clean Linux Instalation (Ubuntu is fine) - pick a 2GB VPS at least to avoid crashings.
+- Get the <a href="https://github.com/danieledangeli/betfair-php"><b>danieledangeli's betfair-php library</b></a>
 
 
 Import Database (First Step)
